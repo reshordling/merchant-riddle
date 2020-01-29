@@ -2,10 +2,21 @@ plugins {
     id 'java'
 }
 
-group 'org.dutch'
-version '1.0-SNAPSHOT'
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.dutch.merchant.App'
+    }
+}
 
-sourceCompatibility = 11
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+apply plugin: 'idea'
+apply plugin: 'application'
+mainClassName = 'org.dutch.merchant.App'
+
+group 'org.dutch.merchant'
+version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
