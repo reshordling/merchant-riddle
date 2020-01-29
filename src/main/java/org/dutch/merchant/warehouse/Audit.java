@@ -18,16 +18,23 @@ public class Audit {
             int remainingPiles = 0;
         };
 
+        // speed-wise LinkedList can be also a good candidate as
+        // it keeps the tail-reference, no need for size-checks
         List<Squad> auditedSquads = new ArrayList<>();
 
         lines.map(String::trim)
                 .takeWhile(line -> !ZERO.equals(line))
+                // this is a potentially great place for Flux or ReactiveJava
                 .forEach(line -> {
                     if (labelWrapper.remainingPiles-- == 0) {
                         labelWrapper.remainingPiles = Integer.valueOf(line);
-                        auditedSquads.add(new Squad(auditedSquads.size() + 1));
+                        int squadLabel = auditedSquads.size() + 1;
+                        auditedSquads.add(new Squad(squadLabel));
                     } else {
-                        auditedSquads.get(auditedSquads.size() - 1).piles.add(toPile(line));
+                        auditedSquads
+                                .get(auditedSquads.size() - 1)
+                                .piles
+                                .add(toPile(line));
                     }
                 });
 
