@@ -33,6 +33,13 @@ public class PileProfitTest {
             .boxed()
             .collect(toList());
 
+    private final List<Integer> HUGE_REPEATING = IntStream
+            .iterate(0, i -> (i + 1) % 4)
+            .map(i -> i + 1)
+            .limit(ONE_M * 4)
+            .boxed()
+            .collect(toList());
+
     @Test
     public void defaultPiles() {
         validate(assess(FIRST), 8, 4);
@@ -44,6 +51,7 @@ public class PileProfitTest {
     public void largePiles() {
         validateMaxProfit(assess(VERY_LARGE_CHEAP), ONE_M);
         validateMaxProfit(assess(VERY_LARGE_EXPENSIVE), 0);
+        validateMaxProfit(assess(HUGE_REPEATING), 30 * ONE_M);
 
     }
 
