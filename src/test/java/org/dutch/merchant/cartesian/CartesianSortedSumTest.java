@@ -1,7 +1,6 @@
-package org.dutch.merchant;
+package org.dutch.merchant.cartesian;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.dutch.merchant.cartesian.SortedSum;
 import org.junit.Test;
 
 import java.util.*;

@@ -22,9 +22,9 @@ public class SortedSum {
         }
 
         return range(0, leftArray.length).flatMap(i ->
-                // this can be optimized by using simple heuristics:
+                // this can be optimized by using simple heuristics and dynamic programming
                 // leftArray[i] + rightArray[j] <= leftArray[i+a] + rightArray[j+b],
-                // where any a,b >= 0
+                // where any a,b >= 0.
                 range(0, rightArray.length).map(j -> leftArray[i] + rightArray[j]))
                 .distinct()
                 .sorted()
