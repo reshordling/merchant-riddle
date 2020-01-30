@@ -1,8 +1,8 @@
 package org.dutch.merchant.cartesian;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.IntStream;
+
+import static java.util.stream.IntStream.range;
 
 // cartesian sum of two ordered streams
 // result is also sorted and truncated by maxSize
@@ -20,38 +20,14 @@ public class SortedSum {
         if (rightArray.length == 0) {
             return IntStream.of(leftArray);
         }
-        int leftIdx = 0;
-        int rightIdx = 0;
-        List<Integer> merged = new ArrayList<>(maxSize);
-        while (leftIdx < leftArray.length && rightIdx < rightArray.length && merged.size() < maxSize) {
-            int sum = leftArray[leftIdx] + rightArray[rightIdx];
-            if (merged.size() == 0 || merged.get(merged.size() - 1) < sum) {
-                merged.add(sum);
-            }
-            if (leftArray[leftIdx] < rightArray[rightIdx]) {
-                leftIdx++;
-            } else {
-                rightIdx++;
-            }
-        }
 
-        while (leftIdx < leftArray.length && merged.size() < maxSize) {
-            int sum = leftArray[leftIdx] + rightArray[rightArray.length - 1];
-            if (merged.size() == 0 || merged.get(merged.size() - 1) < sum) {
-                merged.add(sum);
-            }
-            leftIdx++;
-        }
-
-        while (rightIdx < rightArray.length && merged.size() < maxSize) {
-            int sum = leftArray[leftArray.length - 1] + rightArray[rightIdx];
-            if (merged.size() == 0 || merged.get(merged.size() - 1) < sum) {
-                merged.add(sum);
-            }
-
-            rightIdx++;
-        }
-
-        return merged.stream().mapToInt(x -> x);
+        return range(0, leftArray.length).flatMap(i ->
+                // this can be optimized by using simple heuristics:
+                // leftArray[i] + rightArray[j] <= leftArray[i+a] + rightArray[j+b],
+                // where any a,b >= 0
+                range(0, rightArray.length).map(j -> leftArray[i] + rightArray[j]))
+                .distinct()
+                .sorted()
+                .limit(maxSize);
     }
 }

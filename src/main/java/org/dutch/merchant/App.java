@@ -11,9 +11,7 @@ import java.util.stream.Stream;
 
 public class App {
 
-    private static final String EXAMPLE = "example.txt";
     private static final MerchantConfig CONF = new MerchantConfig();
-
 
     public static void main(String[] args) {
         if (args.length == 1) {
