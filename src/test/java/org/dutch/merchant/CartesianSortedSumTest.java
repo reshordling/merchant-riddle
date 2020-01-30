@@ -34,7 +34,14 @@ public class CartesianSortedSumTest {
     }
 
     // direct cartesian product - sum, sort, uniq, limit
+    // sum ((a), empty) == (a)
     private static int[] dumb(int[] left, int[] right, int limit) {
+        if (left.length == 0) {
+            return right;
+        }
+        if (right.length == 0) {
+            return left;
+        }
         Integer[] leftList = ArrayUtils.toObject(left);
         Integer[] rightList = ArrayUtils.toObject(right);
         Set<Integer> merged = new HashSet<>();

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+// cartesian sum of two ordered streams
+// result is also sorted and truncated by maxSize
+// NB! (a, b) + () == (a, b)
 public class SortedSum {
 
     // args are sorted
@@ -11,11 +14,11 @@ public class SortedSum {
         int[] leftArray = left.toArray();
 
         if (leftArray.length == 0) {
-            return IntStream.empty();
+            return right;
         }
         int[] rightArray = right.toArray();
         if (rightArray.length == 0) {
-            return IntStream.empty();
+            return IntStream.of(leftArray);
         }
         int leftIdx = 0;
         int rightIdx = 0;
