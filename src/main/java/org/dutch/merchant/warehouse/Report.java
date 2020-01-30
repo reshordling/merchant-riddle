@@ -5,7 +5,6 @@ import org.dutch.merchant.dto.SquadDto;
 import org.dutch.merchant.model.Squad;
 import org.dutch.merchant.profit.SquadProfit;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
