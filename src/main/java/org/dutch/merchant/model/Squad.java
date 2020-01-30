@@ -1,4 +1,4 @@
-package org.dutch.merchant.warehouse.model;
+package org.dutch.merchant.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,11 @@
 package org.dutch.merchant.profit;
 
+import org.dutch.merchant.dto.PileDto;
+import org.dutch.merchant.MerchantConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
-
-import static org.dutch.merchant.profit.PartyProfit.ZERO_PROFIT;
-import static org.dutch.merchant.profit.ReportConfig.BASE_PRICE;
-import static org.dutch.merchant.profit.ReportConfig.MAX_RESULTS;
 
 public class PileProfit {
 
@@ -20,13 +19,13 @@ public class PileProfit {
         this.partyProfits = new ArrayList<>(pile.size());
     }
 
-    private IntStream estimateProfits() {
+    private IntStream estimateProfits(MerchantConfig conf) {
         return IntStream.range(0, pile.size())
                 // profit depends on the
                 .map(idx ->
                         getProfitOrDefault(idx - 1, 0)
                                 // potential optimisation place
-                                + BASE_PRICE
+                                + conf.BASE_PRICE
                                 - pile.get(idx))
                 // can also skip remaining if the max possible profit
                 // is too small
@@ -40,18 +39,18 @@ public class PileProfit {
                 .map(i -> ++i);
     }
 
-    public PartyProfit calculate() {
-        int maxProfit = estimateProfits()
+    public PileDto calculate(MerchantConfig conf) {
+        int maxProfit = estimateProfits(conf)
                 .max()
                 .orElse(0);
         if (maxProfit < 1) {
-            return ZERO_PROFIT;
+            return new PileDto();
         }
 
         IntStream partySizes = findPartySizes(maxProfit)
                 // limit results for faster calculation
-                .limit(MAX_RESULTS);
-        return new PartyProfit(partySizes, maxProfit);
+                .limit(conf.MAX_RESULTS);
+        return new PileDto(partySizes, maxProfit);
     }
 
     private int getProfitOrDefault(int idx, int defaultProfit) {

@@ -28,6 +28,11 @@ public class CartesianSortedSumTest {
         assertCartesian(array(1, 2, 3, 4, 5), array(1, 2, 3), 1);
     }
 
+    @Test
+    public void testSquare() {
+        assertCartesian(array(4, 5, 8), array(2, 4, 5), 10);
+    }
+
     private static void assertCartesian(int[] left, int[] right, int limit) {
         int[] sum = SortedSum.limitedBy(of(left), of(right), limit).toArray();
         assertArrayEquals(dumb(left, right, limit), sum);

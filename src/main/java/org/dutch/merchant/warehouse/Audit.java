@@ -1,6 +1,6 @@
 package org.dutch.merchant.warehouse;
 
-import org.dutch.merchant.warehouse.model.Squad;
+import org.dutch.merchant.model.Squad;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ public class Audit {
                 // this is a potentially great place for Flux or ReactiveJava
                 .forEach(line -> {
                     if (labelWrapper.remainingPiles-- == 0) {
-                        labelWrapper.remainingPiles = Integer.valueOf(line);
+                        labelWrapper.remainingPiles = Integer.parseInt(line);
                         int squadLabel = auditedSquads.size() + 1;
                         auditedSquads.add(new Squad(squadLabel));
                     } else {
