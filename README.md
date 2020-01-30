@@ -3,7 +3,7 @@
 Requires Java 11+
 
 ```
-$ ./gradlew build run --args='example.txt'
+$ ./gradlew build run
 
 Execute
 ./gradlew run --args='/absolute/path/to/example.txt'
