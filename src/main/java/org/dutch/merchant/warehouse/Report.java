@@ -5,7 +5,11 @@ import org.dutch.merchant.dto.SquadDto;
 import org.dutch.merchant.model.Squad;
 import org.dutch.merchant.profit.SquadProfit;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.Arrays.stream;
 
 public class Report {
 
@@ -24,6 +28,13 @@ public class Report {
         System.out.println("shuurs " + dto.label);
         System.out.println("Maximum profit is " + dto.profit + ".");
         System.out.println("Number of fluts to buy: "
-                + (dto.profit == 0 ? 0 : dto.sizes));
+                + (dto.profit == 0 ? 0 : join(dto.sizes)));
+    }
+
+    private static String join(int[] sizes) {
+        return stream(sizes)
+                .boxed()
+                .map(String::valueOf)
+                .collect(Collectors.joining(" "));
     }
 }

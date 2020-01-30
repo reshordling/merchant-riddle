@@ -31,6 +31,6 @@ public class App {
     }
 
     private static void printBanner() {
-        System.out.println("./gradlew run --args='/absolute/path/to/example.txt'");
+        System.out.println("Execute\n./gradlew run --args='/absolute/path/to/example.txt'");
     }
 }
